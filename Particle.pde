@@ -1,38 +1,55 @@
 
-class Particle {
+class Particle 
+{
   PVector location;
   PVector velocity;
   PVector acceleration;
-  float lifespan;
+  PVector force;
+  Repeller repeller;
+  float   lifespan;
+  float   mass;
 
-  Particle( PVector l ) 
+  Particle( PVector l, float m, Repeller r ) 
   {
-    acceleration = new PVector( 0, 0.05 );
-    velocity = new PVector(random( -1, 1 ) ,random( -2, 0 ) );
-    location = l.get();
-    lifespan = 255.0;
+    acceleration = new PVector( 0, 0 );
+    velocity     = new PVector( 0, 0 );
+    location     = l.get();
+    lifespan     = 255.0;
+    mass         = m;
+    repeller     = r;
   }
-
+  
+  
   void run() 
   {
     update();
     display();
   }
 
+
   void update() 
   {
+    PVector force = PVector.sub( location, repeller.location );              
+    float distance = force.mag();                                     
+    force.normalize();                                                
+    float strength = ( g * mass * repeller.mass ) / ( distance * distance ); 
+    force.mult( -1 * strength );  
+    applyForce ( force );
+    
     velocity.add( acceleration );
     location.add( velocity );
+    acceleration.mult( 0 );
     lifespan -= 2.0;
   }
+
 
   void display() 
   {
     stroke( 0, lifespan );
-    strokeWeight( 2 );
     fill( 127, lifespan );
-    ellipse( location.x, location.y, 12, 12 );
+    ellipse( location.x, location.y, mass * 2, mass * 2 );
   }
+  
   
   boolean isDead() 
   {
@@ -41,5 +58,12 @@ class Particle {
     } else {
       return false;
     }
+  }
+  
+  
+  void applyForce( PVector force )
+  {
+    PVector f = PVector.div( force, mass );
+    acceleration.add( f ); 
   }
 }

@@ -1,38 +1,38 @@
-// The Nature of Code
-// Daniel Shiffman
-// http://natureofcode.com
-
-// Using Generics now!  comment and annotate, etc.
 
 class ParticleSystem 
 {
+
   ArrayList<Particle> particles;
   PVector origin;
+  Repeller repeller;
 
-  ParticleSystem( PVector location ) 
+
+  ParticleSystem( PVector location, Repeller r ) 
   {
-    origin = location.get();
+    origin    = location.get();
     particles = new ArrayList<Particle>();
+    repeller  = r;
   }
 
-  void addParticle() 
+
+  void addParticle( PVector location, float mass ) 
   {
-    particles.add( new Particle( origin ) );
+    particles.add( new Particle( location, mass, repeller ) );
   }
 
-  void addParticle( float x, float y ) 
-  {
-    particles.add( new Particle( new PVector( x, y ) ) );
-  }
 
   void run() 
   {
-    for ( int i = particles.size() - 1; i >= 0; i-- ) {
+    for ( int i = particles.size() - 1; i >= 0; i-- ) 
+    {
       Particle p = particles.get( i );
       p.run();
-      if ( p.isDead() ) {
+
+      if ( p.isDead() ) 
+      {
         particles.remove( i );
       }
     }
   }
+  
 }
