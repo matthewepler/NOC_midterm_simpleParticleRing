@@ -9,4 +9,10 @@ class Repeller
    mass     = m;
  } 
  
+ void setLocation( PVector l )
+ {
+   PVector newLocation = l.get();
+   location = newLocation; 
+ }
+ 
 }

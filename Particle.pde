@@ -7,9 +7,9 @@ class Particle
   PVector force;
   Repeller repeller;
   float   lifespan;
-  float   mass;
+  int   mass;
 
-  Particle( PVector l, float m, Repeller r ) 
+  Particle( PVector l, int m, Repeller r ) 
   {
     acceleration = new PVector( 0, 0 );
     velocity     = new PVector( 0, 0 );
@@ -29,7 +29,7 @@ class Particle
 
   void update() 
   {
-    PVector force = PVector.sub( location, repeller.location );              
+    PVector force = PVector.sub( repeller.location, location );              
     float distance = force.mag();                                     
     force.normalize();                                                
     float strength = ( g * mass * repeller.mass ) / ( distance * distance ); 
@@ -39,15 +39,14 @@ class Particle
     velocity.add( acceleration );
     location.add( velocity );
     acceleration.mult( 0 );
-    lifespan -= 2.0;
+    lifespan -= 4.0;
   }
 
 
   void display() 
   {
-    stroke( 0, lifespan );
-    fill( 127, lifespan );
-    ellipse( location.x, location.y, mass * 2, mass * 2 );
+    stroke( 255, lifespan );
+    point( location.x, location.y );
   }
   
   
