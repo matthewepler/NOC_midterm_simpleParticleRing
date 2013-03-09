@@ -1,3 +1,5 @@
+// Simple particle system based on Dan Shiffman's 'Nature of Code' examples
+// Matthew Epler, 2013
 
 ParticleSystem ps;
 Repeller repeller;
