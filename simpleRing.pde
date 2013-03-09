@@ -9,7 +9,7 @@ float g = 1;
 void setup() 
 {
   size( 800,800 );
-  origin = new PVector( width/2, height/2 );
+  origin = new PVector( 0, 0 );
   
   repeller = new Repeller( origin, 100 );
   ps = new ParticleSystem( origin, repeller );
@@ -19,10 +19,10 @@ void draw()
 {
   background( 255 );
   
-  // pick a random spot on the circumference of the limit circle
+  float angle = random( 0, 360 );
   PVector start = new PVector();
-  start.x = origin.x + limitRadius * cos( random( 0, TWO_PI ) );
-  start.y = origin.y + limitRadius * sin( random( 0, TWO_PI ) );
+  start.x = cos( radians( angle ) ) * limitRadius;
+  start.y = sin( radians( angle ) ) * limitRadius;
   
   // set mass with Perlin noise, also use to determine color of particle
   float mass = 12.0;
