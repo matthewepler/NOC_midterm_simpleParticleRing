@@ -15,7 +15,7 @@ class ParticleSystem
   }
 
 
-  void addParticle( PVector location, int mass ) 
+  void addParticle( PVector location, float mass ) 
   {
     particles.add( new Particle( location, mass, repeller ) );
   }

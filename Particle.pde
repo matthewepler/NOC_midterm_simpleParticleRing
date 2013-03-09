@@ -7,9 +7,9 @@ class Particle
   PVector force;
   Repeller repeller;
   float   lifespan;
-  int   mass;
+  float   mass;
 
-  Particle( PVector l, int m, Repeller r ) 
+  Particle( PVector l, float m, Repeller r ) 
   {
     acceleration = new PVector( 0, 0 );
     velocity     = new PVector( 0, 0 );
